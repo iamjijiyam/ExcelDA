@@ -5,7 +5,7 @@ import datetime
 csvName = 'D:\Python\DataExcel\ExcelDA\datetime.csv'
 with open(csvName, 'w', newline='') as csvFp: #파일 열기(open), (W)를 통해 읽기 모드, 
     csvWriter = csv.writer(csvFp)
-    csvWriter.writerow(['연월일', '시분초']) #추출할 정보들
+    csvWriter.writerow(['연월일', '시분초']) #나는 도대체 왜 커밋오류가 뜨는지 모르겟다;;;;;;;;;;
 
 count = 10
 while count > 0 :
