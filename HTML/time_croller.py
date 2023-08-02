@@ -7,7 +7,7 @@ with open(csvName, 'w', newline='') as csvFp: #파일 열기(open), (W)를 통�
     csvWriter = csv.writer(csvFp)
     csvWriter.writerow(['연월일', '시분초']) #나는 도대체 왜 커밋오류가 뜨는지 모르겟다;;;;;;;;;;
 
-count = 10
+count = 10 #알고보니 그냥 커밋메시지 안적고 커밋해서;;;;;;;
 while count > 0 :
     count -= 1
 
