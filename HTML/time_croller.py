@@ -14,7 +14,7 @@ while count > 0 :
     now = datetime.datetime.now() #컴퓨터의 현재 시각 값을 가져옴
     yymmdd = now.strftime('%Y-%m-%d')
     hhmmss = now.strftime('%H:%M:%S')
-    time_list = [yymmdd, hhmmss] #년 - 월 - 일 , 시 - 분 - 초
+    time_list = [yymmdd, hhmmss] #년월일,시분초로 서식맞춤
     print(time_list) #출력
 
     with open(csvName, 'a', newline='') as csvFp: #csv파일을 생성해서 기록 저장
