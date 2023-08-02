@@ -78,3 +78,7 @@ option_menu.add_command(label="Save and Exit", command=option_window)
 
 root.config(menu=menu_bar)
 root.mainloop()
+#구버전 코드 사용으로 인해 일어난 오류임.
+#따라서 pd.compat.StringIO 대신 io.StringIO를 사용하여서 오류를 고치도록 함.
+#해당 오류 구문
+# Error: module 'pandas.compat' has no attribute 'StringIO' pops up.
