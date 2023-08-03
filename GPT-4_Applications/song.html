@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>  <!-- HTML 확장자 설정 -->
+<html lang="en"> <!-- 해당 웹 언어 설정 -->
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seasonal Playlist</title>
+  <title>Seasonal Playlist</title> <!-- 타이틀 설정 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700&display=swap" rel="stylesheet">
@@ -11,16 +11,21 @@
     * {
       font-family: 'Nanum Myeongjo', serif;
     }
+    
+    /* Add this CSS rule to set the font size of the "Tags" list item */
+    li:first-child a {
+      font-size: 17pt;
+    }
   </style>
 </head>
 <body>
   <h1>Seasonal Playlist</h1>
   <ul>
-    <li><a href="#tag" target="_blank">Tags</a></li>
-    <li><a href="spring" target="_blank">Spring Playlist</a></li>
-    <li><a href="summer" target="_blank">Summer Playlist</a></li>
-    <li><a href="fall" target="_blank">Fall Playlist</a></li>
-    <li><a href="winter" target="_blank">Winter Playlist</a></li>
+    <li><a target="_blank">Tags</a></li> <!-- Tags는 텍스트 이므로 "_blank"를 집어넣어 하이퍼 링크를 막음 -->
+    <li><a href="https://open.spotify.com/playlist/64VTYHpMxaVwLhjJQEn13Z?si=fd184c7b004a41c8" target="_blank">Spring Playlist</a></li>
+    <li><a href="https://open.spotify.com/playlist/37i9dQZF1DX0C07QWzaEB5" target="_blank">Summer Playlist</a></li>
+    <li><a href="https://open.spotify.com/playlist/5QSd8RV3KZ3qjLuTWGmoQo?si=351b6f030e3f4602" target="_blank">Fall Playlist</a></li>
+    <li><a href="https://open.spotify.com/playlist/1kaeyJkIkECBKR5uq2qi4D?si=e1c7b3bd066c4a21" target="_blank">Winter Playlist</a></li>
   </ul>
 </body>
 </html>
