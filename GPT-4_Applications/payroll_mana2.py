@@ -1,55 +1,70 @@
-import tkinter as tk
-from tkinter import ttk
-from tkinter import filedialog
-import pandas as pd
+import sys
+import csv
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QAction
 
-def import_csv():
-    file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
-    if file_path:
-        df = pd.read_csv(file_path)
-        display_data(df)
+class CSVFileViewer(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-def display_data(data_frame):
-    for widget in frame.winfo_children():
-        widget.destroy()
+        self.initUI()
 
-    table = ttk.Treeview(frame, columns=list(data_frame.columns), show="headings")
-    for column in data_frame.columns:
-        table.heading(column, text=column)
-    table.pack()
+    def initUI(self):
+        self.setWindowTitle('급여 관리 장부')
+        self.setGeometry(100, 100, 800, 600)
 
-    for index, row in data_frame.iterrows():
-        table.insert("", "end", values=list(row))
+        self.file_path = None
+        self.table_widget = QTableWidget()
 
-def add_salary():
-    selected_item = table.selection()
-    if selected_item:
-        salary = salary_entry.get()
-        if salary.isdigit():
-            selected_index = table.index(selected_item)
-            table.set(selected_item, "#2", salary)
-        else:
-            # Handle invalid input (non-numeric salary)
-            pass
+        self.btn_open = QPushButton('Open CSV', self)
+        self.btn_open.clicked.connect(self.openFile)
 
-root = tk.Tk()
-root.title("Payroll Management Program")
+        layout = QVBoxLayout()
+        layout.addWidget(self.btn_open)
+        layout.addWidget(self.table_widget)
 
-frame = ttk.Frame(root)
-frame.pack(pady=10)
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
 
-import_button = ttk.Button(frame, text="Import CSV", command=import_csv)
-import_button.pack(side=tk.LEFT, padx=5)
+        # Create the "Quit" action and add it to the menu bar
+        quit_action = QAction("Quit", self)
+        quit_action.triggered.connect(self.close)
+        self.menuBar().addAction(quit_action)
 
-filedialog = filedialog
+    def openFile(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open CSV File", "", "CSV Files (*.csv);;All Files (*)", options=options)
 
-table = ttk.Treeview(frame)
-table.pack()
+        if file_path:
+            self.file_path = file_path
+            self.displayCSVContents()
 
-salary_entry = ttk.Entry(root)
-salary_entry.pack(pady=10)
+    def displayCSVContents(self):
+        if not self.file_path:
+            return
 
-add_salary_button = ttk.Button(root, text="Add Salary", command=add_salary)
-add_salary_button.pack()
+        with open(self.file_path, 'r', newline='') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            rows = list(csv_reader)
 
-root.mainloop()
+            if not rows:
+                return
+
+            num_rows = len(rows)
+            num_columns = len(rows[0])
+
+            self.table_widget.setRowCount(num_rows)
+            self.table_widget.setColumnCount(num_columns)
+
+            for row_idx, row in enumerate(rows):
+                for col_idx, cell_value in enumerate(row):
+                    item = QTableWidgetItem(cell_value)
+                    self.table_widget.setItem(row_idx, col_idx, item)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = CSVFileViewer()
+    window.show()
+    sys.exit(app.exec_())
