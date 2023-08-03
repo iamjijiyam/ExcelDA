@@ -67,4 +67,4 @@ class EmployeePayrollManagement:
 if __name__ == "__main__":
     root = tk.Tk()
     employee_payroll = EmployeePayrollManagement(root)
-    root.mainloop() #ㅂㅇ
+    root.mainloop()     #ㅂㅇ
