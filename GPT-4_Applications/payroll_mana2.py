@@ -18,8 +18,13 @@ class CSVFileViewer(QMainWindow):
         self.btn_open = QPushButton('Open CSV', self)
         self.btn_open.clicked.connect(self.openFile)
 
+        self.btn_save = QPushButton('Save CSV', self)
+        self.btn_save.clicked.connect(self.saveFile)
+        self.btn_save.setEnabled(False)  # Disable save button initially
+
         layout = QVBoxLayout()
         layout.addWidget(self.btn_open)
+        layout.addWidget(self.btn_save)
         layout.addWidget(self.table_widget)
 
         container = QWidget()
@@ -39,6 +44,7 @@ class CSVFileViewer(QMainWindow):
         if file_path:
             self.file_path = file_path
             self.displayCSVContents()
+            self.btn_save.setEnabled(True)  # Enable the save button after opening a file
 
     def displayCSVContents(self):
         if not self.file_path:
@@ -62,6 +68,15 @@ class CSVFileViewer(QMainWindow):
                     item = QTableWidgetItem(cell_value)
                     self.table_widget.setItem(row_idx, col_idx, item)
 
+    def saveFile(self):
+        if not self.file_path:
+            return
+
+        with open(self.file_path, 'w', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            for row_idx in range(self.table_widget.rowCount()):
+                row_data = [self.table_widget.item(row_idx, col_idx).text() for col_idx in range(self.table_widget.columnCount())]
+                csv_writer.writerow(row_data)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
